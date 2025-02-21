@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chakra Tracker</title>
+<style>
+body {
+    font-family: sans-serif;
+}
+</style>
+</head>
+<body onload="initializeTracker()">  <h1>Chakra Tracker</h1>
+
+    <div>
+        Max Chakra: <input type="number" id="maxChakra" value="10">
+        Replenish Rate: <input type="number" id="replenishRate" value="0">
+        <button onclick="initializeTracker()">Initialize</button>  </div>
+
+    <div id="chakraInfo">
+        Current Chakra: <span id="currentChakra">0</span>/<span id="maxChakraDisplay">0</span>
+    </div>
+
+    <div>
+        Jutsu Name: <input type="text" id="jutsuName">
+        Chakra Cost: <input type="number" id="jutsuCost">
+        <button onclick="chakraTracker.addJutsu()">Add Jutsu</button>
+    </div>
+
+    <div>
+        Jutsu to Use/Remove: <input type="text" id="jutsuToUseRemove">
+        <button onclick="chakraTracker.useJutsu()">Use Jutsu</button>
+        <button onclick="chakraTracker.removeJutsu()">Remove Jutsu</button>
+    </div>
+
+    <div>
+        <button onclick="chakraTracker.displayJutsuList()">Display Jutsu List</button>
+        <button onclick="chakraTracker.recoverChakra()">Recover Chakra</button>
+    </div>
+
+    <div id="jutsuList">
+        <h2>Available Jutsu:</h2>
+        <ul id="jutsuItems"></ul>
+    </div>
+
+    <script>
+        let chakraTracker;
+
+        function initializeTracker() {
+            const maxChakra = parseInt(document.getElementById("maxChakra").value);
+            const replenishRate = parseFloat(document.getElementById("replenishRate").value);
+            chakraTracker = new ChakraTracker(maxChakra, replenishRate);
+            updateDisplay();
+        }
+
+        //... (Rest of your ChakraTracker class code remains the same)
+
+        function updateDisplay() {
+            if (chakraTracker) {
+                chakraTracker.replenish();
+                document.getElementById("currentChakra").textContent = chakraTracker.currentChakra;
+                document.getElementById("maxChakraDisplay").textContent = chakraTracker.maxChakra;
+            }
+        }
+
+        // Update chakra display periodically (adjust interval as needed)
+        setInterval(updateDisplay, 1000);
+    </script>
+</body>
+</html>
